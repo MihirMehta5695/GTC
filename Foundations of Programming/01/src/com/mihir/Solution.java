@@ -59,14 +59,40 @@ public class Solution {
 
     private static String biggestSubString(HashMap<Character, ArrayList<Integer>> inputStringHashMap, String[] listOfWords, String originalString) {
         String correctAns = null;
+        Integer previousIndexAtS=null;
+        Boolean previousCharacterFound=null;
+
         //Big-Oh of (WxL)
+        //Iterating through the list of words
+
         for (String word : listOfWords) {
-            if (correctAns == null) {
-                correctAns = word;
+
+            // If the word's length is greater that originalString length, it is not possible that it is subsequence of originalString
+            if (word.length() > originalString.length()) {
+                continue;
             }
-            if (correctAns.equals(originalString))
-                return correctAns;
-            for (int index = 0; index < word.length(); index++) {
+
+            // If word is exactly same as original String,we return the String as it is the perfect subsequence
+            if (word.equals(originalString)) {
+                return word;
+            }
+
+            // If word's length is less than originalString, there is a possibility for word being a subsequence of originalString
+            else {
+
+                for(int index=0;index<word.length();index++){
+
+                    char character = word.charAt(index);
+
+                    // If character doesn't exist in originalString, we skip this word entirely
+                    if(!inputStringHashMap.containsKey(character)){
+                        continue;
+                    }
+
+                    //
+                    else
+
+                }
 
             }
         }
