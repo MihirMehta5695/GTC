@@ -32,7 +32,7 @@ public class Solution {
             String s = br.readLine();
             String[] d = br.readLine().split(" ");
             HashMap inputStringHM = convertInputStringToMap(s);
-            System.out.println(biggestSubString(inputStringHM,d,s));
+            System.out.println(biggestSubString(inputStringHM, d, s));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class Solution {
 
             // If word's length is less than originalString, there is a possibility for word being a subsequence of originalString
             else if (isValidSubsequence(word, originalString, inputStringHashMap)) {
-                if ((correctAns == null) || (correctAns != null && correctAns.length() >= word.length())) {
+                if ((correctAns == null) || (correctAns != null && correctAns.length() <= word.length())) {
                     correctAns = word;
                 }
             }
@@ -86,7 +86,7 @@ public class Solution {
         return correctAns;
     }
 
-    private static Boolean isValidSubsequence(String word, String s, HashMap<Character, ArrayList<Integer>> letterMap) {
+    private static Boolean isValidSubsequence(String word, String s, HashMap<Character, ArrayList<Integer>> stringLetterIndexMap) {
 
         Boolean isValidSubseq = false;
         for (int currentIndexOfWord = 0; currentIndexOfWord <= word.length(); currentIndexOfWord++) {
@@ -95,11 +95,25 @@ public class Solution {
             char currentCharInWord = word.charAt(currentIndexOfWord);
 
             // If letter exists in S
-            if(letterMap.containsKey(currentCharInWord)){
+            if (stringLetterIndexMap.containsKey(currentCharInWord)) {
 
-            }
+                int currentIndexOfS = -1;
 
-            else{
+                ArrayList<Integer> listOfIndicesForCharInS = stringLetterIndexMap.get(currentCharInWord);
+
+                for (Integer indexForCharInS : listOfIndicesForCharInS) {
+
+                    if((currentIndexOfS<=indexForCharInS) && (indexForCharInS<=(s.length()-1))){
+                        currentIndexOfS = indexForCharInS;
+                        continue;
+                    }
+
+                    if((currentIndexOfS>)){}
+
+                }
+
+
+            } else {
                 return false;
             }
 
