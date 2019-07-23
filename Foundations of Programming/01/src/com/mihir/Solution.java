@@ -32,6 +32,7 @@ public class Solution {
             String s = br.readLine();
             String[] d = br.readLine().split(" ");
             HashMap inputStringHM = convertInputStringToMap(s);
+            System.out.println(biggestSubString(inputStringHM,d,s));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -59,8 +60,6 @@ public class Solution {
 
     private static String biggestSubString(HashMap<Character, ArrayList<Integer>> inputStringHashMap, String[] listOfWords, String originalString) {
         String correctAns = null;
-        Integer previousIndexAtS=null;
-        Boolean previousCharacterFound=null;
 
         //Big-Oh of (WxL)
         //Iterating through the list of words
@@ -78,24 +77,33 @@ public class Solution {
             }
 
             // If word's length is less than originalString, there is a possibility for word being a subsequence of originalString
-            else {
-
-                for(int index=0;index<word.length();index++){
-
-                    char character = word.charAt(index);
-
-                    // If character doesn't exist in originalString, we skip this word entirely
-                    if(!inputStringHashMap.containsKey(character)){
-                        continue;
-                    }
-
-                    //
-                    else
-
+            else if (isValidSubsequence(word, originalString, inputStringHashMap)) {
+                if ((correctAns == null) || (correctAns != null && correctAns.length() >= word.length())) {
+                    correctAns = word;
                 }
-
             }
         }
         return correctAns;
+    }
+
+    private static Boolean isValidSubsequence(String word, String s, HashMap<Character, ArrayList<Integer>> letterMap) {
+
+        Boolean isValidSubseq = false;
+        for (int currentIndexOfWord = 0; currentIndexOfWord <= word.length(); currentIndexOfWord++) {
+
+            // Current character of Word
+            char currentCharInWord = word.charAt(currentIndexOfWord);
+
+            // If letter exists in S
+            if(letterMap.containsKey(currentCharInWord)){
+
+            }
+
+            else{
+                return false;
+            }
+
+        }
+        return isValidSubseq;
     }
 }
