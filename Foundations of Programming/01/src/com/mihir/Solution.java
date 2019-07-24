@@ -31,7 +31,7 @@ public class Solution {
         try (BufferedReader br = new BufferedReader(new FileReader("input.txt"))) {
             String s = br.readLine();
             String[] d = br.readLine().split(" ");
-            HashMap inputStringHM = convertInputStringToMap(s);
+            HashMap<Character, ArrayList<Integer>> inputStringHM = convertInputStringToMap(s);
             System.out.println(biggestSubString(inputStringHM, d, s));
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -88,8 +88,9 @@ public class Solution {
 
     private static Boolean isValidSubsequence(String word, String s, HashMap<Character, ArrayList<Integer>> stringLetterIndexMap) {
 
-        Boolean isValidSubseq = false;
-        for (int currentIndexOfWord = 0; currentIndexOfWord <= word.length(); currentIndexOfWord++) {
+        Boolean isValidSubseq = true;
+        int currentIndexOfS = -1;
+        for (int currentIndexOfWord = 0; currentIndexOfWord < word.length(); currentIndexOfWord++) {
 
             // Current character of Word
             char currentCharInWord = word.charAt(currentIndexOfWord);
@@ -97,24 +98,35 @@ public class Solution {
             // If letter exists in S
             if (stringLetterIndexMap.containsKey(currentCharInWord)) {
 
-                int currentIndexOfS = -1;
 
                 ArrayList<Integer> listOfIndicesForCharInS = stringLetterIndexMap.get(currentCharInWord);
 
-                for (Integer indexForCharInS : listOfIndicesForCharInS) {
+                for (int i = 0; i < listOfIndicesForCharInS.size(); i++) {
 
-                    if((currentIndexOfS<=indexForCharInS) && (indexForCharInS<=(s.length()-1))){
-                        currentIndexOfS = indexForCharInS;
+                    int tempIndex = listOfIndicesForCharInS.get(i);
+
+                    if (tempIndex > currentIndexOfS) {
+                        currentIndexOfS = tempIndex;
+                        break;
+                    }
+
+                    if (tempIndex < currentIndexOfS && tempIndex < (s.length() - 1)) {
+                        if (i + 1 == listOfIndicesForCharInS.size() || i == listOfIndicesForCharInS.size()) {
+                            isValidSubseq = false;
+                            break;
+                        }
                         continue;
                     }
 
-                    if((currentIndexOfS>)){}
+                    if (tempIndex < currentIndexOfS && tempIndex == (s.length() - 1)) {
+                        isValidSubseq = false;
+                    }
 
                 }
 
 
             } else {
-                return false;
+                isValidSubseq = false;
             }
 
         }
