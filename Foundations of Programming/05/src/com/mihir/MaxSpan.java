@@ -12,10 +12,30 @@ package com.mihir;
 public class MaxSpan {
 
     public static void main(String[] args) {
+        int[] myArray = {1, 4, 2, 1, 4, 4, 4};
+        System.out.println(new MaxSpan().maxSpan(myArray));
 
     }
 
     public int maxSpan(int[] nums) {
-
+        if (nums.length == 0) {
+            return 0;
+        }
+        int maxSpan = 0;
+        int startIndex = 0, endIndex = nums.length - 1;
+        while (startIndex < nums.length) {
+            endIndex = nums.length - 1;
+            while (endIndex >= startIndex) {
+                if ((nums[startIndex] == nums[endIndex])) {
+                    int currentSpan = endIndex - startIndex;
+                    if (maxSpan < currentSpan) {
+                        maxSpan = currentSpan;
+                    }
+                }
+                endIndex--;
+            }
+            startIndex++;
+        }
+        return maxSpan + 1;
     }
 }
