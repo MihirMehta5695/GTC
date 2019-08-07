@@ -17,22 +17,29 @@ package com.mihir;
 public class WithoutString {
 
     public static void main(String[] args) {
-        String base = "Hello there";
-        String remove = "llo";
+        String base = "This is a FISH";
+        String remove = "IS";
 
         new WithoutString().withoutString(base, remove);
     }
 
     public String withoutString(String base, String remove) {
-        if (base.equalsIgnoreCase(remove)) {
-            return "";
-        }
-
-        if (base.contains(remove)) {
-
-        }
 
         String answer = "";
+
+
+        String[] afterSplitting = base.toUpperCase().split(remove.toUpperCase());
+        int removeLength = remove.length();
+
+        int indexOfS = 0;
+        for (int arrayIndex = 0; arrayIndex < (afterSplitting.length); arrayIndex++) {
+            int jumpIndex = afterSplitting[arrayIndex].length();
+            answer = answer.concat(base.substring(indexOfS, indexOfS+jumpIndex));
+            indexOfS+=jumpIndex+removeLength;
+        }
+
+        System.out.println(answer);
+
         return answer;
     }
 }
